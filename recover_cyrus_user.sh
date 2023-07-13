@@ -81,8 +81,4 @@ done | tee linkmbx.bash
 echo linkmbx.bash created, please review before executing and then run it
 echo manual work:
 echo 1. might be too many argument, review output
-echo 2. main inbox not linked, create inbox_recovered and link the contents
-# That would look something like:
-# cm user.<whatever>.inbox_recovered
-# cd `mbpath user.<whatever>.inbox_recovered`
-# ls -f /var/spool/cyrus/mail/<hashletter>/user/<whatever>/ | xargs -I{} ln -f '/var/spool/cyrus/mail/<hashletter>/user/<whatever>/{}' .
+echo 2. main inbox not linked, create inbox_recovered and link the contents. See the README for details on how to do that.

@@ -24,6 +24,8 @@ The script in this repo will attempt to help you recover your data. Initially wr
 
 The script is incredibly conservative - it will generate two scripts for you, and then have you inspect them and run them yourself. This is to ensure that your data isn't trampled on.
 
+Place the script somewhere and make it executable (`chmod +x recover_cyrus_user.sh`).
+
 For each user on your system, you'll run `recover_cyrus_user.sh <full_user_hash>`. So for example, `recover_cyrus_user.sh p/user/phil`.
 
 The script will first walk all folders it can find for that user, and then generate a script you will pass to `cyradm` to generate those folders (which will create the UUID directories). It will then spawn a shell so you may inspect the script and pass it to `cyradm`. It'll look like this:
@@ -63,15 +65,24 @@ Inspect `linkmbx.bash` and then run it (as root):
 
 If there's any errors, inspect, and fix.
 
-Finally you can recover the user's inbox an as `inbox_recovered` (so as not to mess with any email received since the migration, by doing this:
+Finally you can recover the user's inbox an as `inbox_recovered` (so as not to mess with any email received since the migration, by doing the following. First create a new, empty `inbox_recovered` in the new strufture using `cyradm`:
 
-```
-# cyradm --user cyrus
+```shell
+# cyradm --user cyrus localhost
 > cm user.<whatever>.inbox_recovered
 > ^D
+```
+
+For example, that might be `cm user.phil.inbox_recovered`.
+
+Then cd into the path to this new directory and link the old inbox to it:
+
+```shell
 # cd $(mbpath user.<whatever>.inbox_recovered)
 ls -f /var/spool/cyrus/mail/<hashletter>/user/<whatever>/ | xargs -I{} ln -f '/var/spool/cyrus/mail/<hashletter>/user/<whatever>/{}' .
 ```
+
+For example that might be `ls -f /var/spool/cyrus/mail/p/user/phil/ | xargs -I{} ln -f '/var/spool/cyrus/mail/p/user/phil/{}' .
 
 # Final words
 
