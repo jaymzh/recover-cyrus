@@ -80,7 +80,7 @@ Then cd into the path to this new directory and link the old inbox to it:
 ```shell
 cd $(/usr/lib/cyrus/bin/mbpath user.<user>.inbox_recovered)
 OLD_INBOX='/var/spool/cyrus/mail/<hashletter>/user/<user>'
-ls -f ${OLD_INBOX?}/ | xargs -I{} ln -f '${OLD_INBOX?}/{}' .
+ls -f ${OLD_INBOX?}/ | xargs -I{} ln -f "${OLD_INBOX?}/{}" .
 ```
 
 For example that would look like:
