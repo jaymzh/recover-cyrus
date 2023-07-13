@@ -65,7 +65,7 @@ Inspect `linkmbx.bash` and then run it (as root):
 
 If there's any errors, inspect, and fix.
 
-Finally you can recover the user's inbox an as `inbox_recovered` (so as not to mess with any email received since the migration, by doing the following. First create a new, empty `inbox_recovered` in the new strufture using `cyradm`:
+Finally you can recover the user's inbox an as `inbox_recovered` (so as not to mess with any email received since the migration) by doing the following. First create a new, empty `inbox_recovered` in the new strufture using `cyradm`:
 
 ```shell
 # cyradm --user cyrus localhost
