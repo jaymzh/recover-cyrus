@@ -78,8 +78,9 @@ For example, that might be `cm user.phil.inbox_recovered`.
 Then cd into the path to this new directory and link the old inbox to it:
 
 ```shell
-# cd $(mbpath user.<whatever>.inbox_recovered)
-ls -f /var/spool/cyrus/mail/<hashletter>/user/<whatever>/ | xargs -I{} ln -f '/var/spool/cyrus/mail/<hashletter>/user/<whatever>/{}' .
+cd $(/usr/lib/cyrus/bin/mbpath user.<whatever>.inbox_recovered)
+OLD_INBOX='/var/spool/cyrus/mail/<hashletter>/user/<whatever>'
+ls -f ${OLD_INBOX?}/ | xargs -I{} ln -f '${OLD_INBOX?}/{}' .
 ```
 
 For example that might be `ls -f /var/spool/cyrus/mail/p/user/phil/ | xargs -I{} ln -f '/var/spool/cyrus/mail/p/user/phil/{}' .
