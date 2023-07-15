@@ -65,7 +65,7 @@ for MBX in $MBXLIST; do
     # get original path of mailbox
     OLDPATH=$SPOOLDIR$1/${MBX//\./\/}
     if ! [ -d "$OLDPATH" ]; then
-        error "Old path for $MBX ($OLDPATH) does not exist, please investigate, skipping"
+        err "Old path for $MBX ($OLDPATH) does not exist, please investigate, skipping"
         continue
     fi
     if ! [ -d "$NEWPATH" ]; then
