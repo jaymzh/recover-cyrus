@@ -33,6 +33,8 @@ if [[ -z "$1" ]] || ! [[ $1 =~ / ]]; then
     exit
 fi
 
+IFS=$'\n'
+
 # first argument is relative spool dir of user e.g.: $ scriptname k/user/kai
 # extract user and reformat for cm command of cyadmin
 # k/user/kai -> user.kai
@@ -42,12 +44,12 @@ SHORT_USER=$(echo ${FULL_USER?} | cut -d/ -f 2,3 | tr "/" ".")
 MBXLIST=$(
     find ${SPOOLDIR?}${FULL_USER?} -type d |\
         cut -d/ -f 1-8 --complement |\
-        tr "/ " "._"
+        tr "/" "."
 )
 
 # generate a script for cyradm to create new mailboxes
 for MBX in $MBXLIST; do
-    echo cm $SHORT_USER.$MBX
+    echo "cm \"$SHORT_USER.$MBX\""
 done > creatembx.cyradm
 echo starting shell to examine the situation
 echo creatembx.cyradm created to feed cyradm
@@ -82,3 +84,4 @@ echo linkmbx.bash created, please review before executing and then run it
 echo manual work:
 echo 1. might be too many argument, review output
 echo 2. main inbox not linked, create inbox_recovered and link the contents. See the README for details on how to do that.
+
